@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="white"/>
+  
+  <!-- Pentagon pattern for football -->
+  <g fill="black" stroke="black" stroke-width="2">
+    <!-- Center pentagon -->
+    <polygon points="256,100 355,175 325,300 187,300 157,175" fill="none"/>
+    
+    <!-- Surrounding pentagons -->
+    <polygon points="256,100 355,175 450,125 400,35 256,35" fill="none"/>
+    <polygon points="355,175 450,125 470,256 397,356 325,300" fill="none"/>
+    <polygon points="325,300 397,356 325,450 187,450 187,300" fill="none"/>
+    <polygon points="187,300 187,450 115,356 42,256 157,175" fill="none"/>
+    <polygon points="157,175 42,256 62,125 157,35 256,35" fill="none"/>
+    
+    <!-- Connecting lines -->
+    <line x1="256" y1="100" x2="256" y2="35" stroke-width="4"/>
+    <line x1="355" y1="175" x2="450" y2="125" stroke-width="4"/>
+    <line x1="325" y1="300" x2="397" y2="356" stroke-width="4"/>
+    <line x1="187" y1="300" x2="187" y2="450" stroke-width="4"/>
+    <line x1="157" y1="175" x2="62" y2="125" stroke-width="4"/>
+  </g>
+</svg>

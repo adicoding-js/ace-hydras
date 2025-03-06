@@ -1,0 +1,26 @@
+{
+  "name": "school-football-website",
+  "version": "1.0.0",
+  "description": "A modern, interactive website for a school football team featuring 3D models and animations",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "school",
+    "football",
+    "team",
+    "3D",
+    "website"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "gsap": "^3.12.2",
+    "three": "^0.160.0"
+  }
+}
