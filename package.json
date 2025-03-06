@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "live-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo 'Static site - no build required'"
   },
   "keywords": [
     "school",
@@ -21,6 +22,7 @@
   },
   "dependencies": {
     "gsap": "^3.12.2",
-    "three": "^0.160.0"
+    "three": "^0.160.0",
+    "vercel": "^41.3.1"
   }
 }
