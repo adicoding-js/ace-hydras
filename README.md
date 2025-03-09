@@ -1,6 +1,6 @@
-# School Football Team Website
+# Ace Hydras
 
-A modern, interactive website for a school football team featuring 3D models and animations. This website is inspired by the design of [Hatom](https://www.hatom.com/) but customized for a school football team.
+A modern, interactive website for a football team.
 
 ## Features
 

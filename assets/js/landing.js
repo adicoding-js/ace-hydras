@@ -1,8 +1,29 @@
 // Landing page phoenix animation
+
+//Interaction with mouse
+const mouse = new THREE.Vector2();
+const raycaster = new THREE.Raycaster();
+let intersects;
+let isDragging = false;
+let previousMousePosition = {
+    x: 0,
+    y: 0
+};
+let phoenix;
+let phoenixLoaded = false;
+function updateLoadingText(){
+    if(phoenixLoaded){
+        document.querySelector('.loading-text').innerHTML = "Click to start!";
+    }
+}
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the 3D scene
     initPhoenixScene();
 });
+
+
+
+
 
 function initPhoenixScene() {
     // Create scene, camera, and renderer
@@ -27,6 +48,17 @@ function initPhoenixScene() {
     const blueLight = new THREE.PointLight(0x90caf9, 1, 100); // Blue light
     blueLight.position.set(-5, 2, -5);
     scene.add(blueLight);
+
+    // Load the Phoenix model
+    const loader = new THREE.GLTFLoader();
+    loader.load('assets/models/phoenix.glb', (gltf) => {
+        phoenix = gltf.scene;
+        phoenix.scale.set(0.5, 0.5, 0.5);
+        phoenix.position.set(0, -2, 0); // Adjust position as needed
+        scene.add(phoenix);
+        phoenixLoaded = true;
+        updateLoadingText();
+    });
     
     // Create a phoenix placeholder (would be replaced with actual phoenix model)
     // For now, let's create a stylized bird shape
@@ -99,13 +131,13 @@ function initPhoenixScene() {
     
     // Position phoenix and camera
     phoenixGroup.position.set(0, 0, 10);
-    camera.position.set(0, 2, 15);
-    camera.lookAt(phoenixGroup.position);
+    camera.position.set(0, 5, 15);
+    
     
     // Phoenix idle animation
     function animatePhoenixIdle() {
         // Gently move the phoenix up and down
-        gsap.to(phoenixGroup.position, {
+        gsap.to(phoenixGroup.position,{
             y: 0.5,
             duration: 2,
             ease: "power1.inOut",
@@ -153,6 +185,7 @@ function initPhoenixScene() {
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
     
+    
     // Handle click to start the flight animation
     document.addEventListener('click', () => {
         document.querySelector('.loading-text').style.display = 'none';
@@ -163,6 +196,40 @@ function initPhoenixScene() {
     document.addEventListener('touchstart', () => {
         document.querySelector('.loading-text').style.display = 'none';
         animatePhoenixFlight(phoenixGroup, camera);
+    });
+    function onDocumentMouseMove(event) {
+        event.preventDefault();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        raycaster.setFromCamera(mouse, camera);
+        intersects = raycaster.intersectObjects(scene.children, true);
+        if (isDragging && phoenix) {
+            const deltaMove = {
+                x: event.offsetX - previousMousePosition.x,
+                y: event.offsetY - previousMousePosition.y
+            };
+            phoenix.rotation.y += deltaMove.x * 0.01;
+            previousMousePosition = {
+                x: event.offsetX,
+                y: event.offsetY
+            };
+        }
+    }
+    
+    function onDocumentMouseDown(event) {
+        event.preventDefault();
+        isDragging = true;
+        previousMousePosition = {
+            x: event.offsetX,
+            y: event.offsetY
+        };
+    }
+    
+    function onDocumentMouseUp(event) {
+        event.preventDefault();
+        isDragging = false;
+    }
+    
     });
 }
 
@@ -323,3 +390,9 @@ document.addEventListener('DOMContentLoaded', function() {
     instructionText.innerHTML = 'Click anywhere to enter';
     landingContainer.appendChild(instructionText);
 });
+document.addEventListener('mousemove', onDocumentMouseMove, false);
+document.addEventListener('mousedown', onDocumentMouseDown, false);
+document.addEventListener('mouseup', onDocumentMouseUp, false);
+
+
+
